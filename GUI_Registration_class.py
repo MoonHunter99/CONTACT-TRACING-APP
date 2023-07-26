@@ -11,8 +11,8 @@ class RegistrationGUI:
         self.app = customtkinter.CTk()
         self.app.geometry("1600x900")
         self.app.title("Neil's Personal Contact Tracing Application")
-        frame1= customtkinter.CTkFrame(master= self.app)
-        frame1.pack(padx= 60 , pady=20)
+        frame1= customtkinter.CTkScrollableFrame(master= self.app)
+        frame1.pack(fill=customtkinter.BOTH,expand="yes",padx= 60 , pady=20)
         label_Title = customtkinter.CTkLabel(master= frame1, text="Neil's Contact Tracing Application", font=("Times New Roman", 40), text_color="blue")
         label_Title.pack(padx=10 , pady=12)
         label_first_name = customtkinter.CTkLabel(master= frame1, text="First Name", font=("Times New Roman", 20), text_color="orange")
@@ -31,7 +31,23 @@ class RegistrationGUI:
         label_email.pack(padx=10 , pady=10)
         self.email = customtkinter.CTkEntry(master=frame1, placeholder_text="E-mail")
         self.email.pack(pady=10, padx=10, )
-# create a method for starting the mainloop of the window
+        label_address = customtkinter.CTkLabel(master= frame1, text="Address", font=("Times New Roman", 20), text_color="orange")
+        label_address.pack(padx=10 , pady=10)
+        self.address = customtkinter.CTkEntry(master=frame1, placeholder_text="Address")
+        self.address.pack(pady=10, padx=10,)
+        label_vaccine = customtkinter.CTkLabel(master=frame1, text= "Vaccine", font=("Times New Roman", 20), text_color="orange")
+        label_vaccine.pack(padx=12 , pady=10)
+        checkbox_vaccine_options = ["No Vaccine","1st Dose","2nd Dose","1st Booster","2nd Booster"]
+        self.vaccine_checkbox = [customtkinter.IntVar() for _ in range(len(checkbox_vaccine_options))]
+        for i, option in enumerate(checkbox_vaccine_options):
+            customtkinter.CTkCheckBox(frame1, text=option, variable=self.vaccine_checkbox[i], font=("Times New Roman", 12)).pack()
+        label_symptoms = customtkinter.CTkLabel(master= frame1, text="Symptoms", font=("Times New Roman", 20), text_color="orange")
+        label_symptoms.pack(padx=12, pady=10)
+        checkbox_symptoms_options = ["Fever","Headache","Cough","Shortness of breath","Colds", "Difficulty of breathing", "Muscle/body pains", "Loss of taste", "Loss of smell", "Sore throat", "Diarrhea"]
+        self.symptoms_checkbox = [customtkinter.IntVar() for _ in range(len(checkbox_symptoms_options))]
+        for i, option in enumerate(checkbox_symptoms_options):
+            customtkinter.CTkCheckBox(frame1, text=option, variable=self.symptoms_checkbox[i], font=("Times New Roman", 12)).pack()
+    # create a method for starting the mainloop of the window
     def mainloop(self):
         self.app.mainloop()
-# create a method of getting the information and write it in a excel file
+    # create a method of getting the information and write it in a excel file
