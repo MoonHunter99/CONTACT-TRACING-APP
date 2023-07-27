@@ -68,13 +68,10 @@ class RegistrationGUI:
         ctk.CTkCheckBox(self.frame1, text="Sore throat", variable=self.symptomas_sorethroat, font=("Times New Roman", 12), onvalue=True, offvalue=False).pack()
         self.symptomas_diarreah = ctk.BooleanVar()
         ctk.CTkCheckBox(self.frame1, text="Diarrhea", variable=self.symptomas_diarreah, font=("Times New Roman", 12), onvalue=True, offvalue=False).pack()
-        label_covid_contact = ctk.CTkLabel(master= self.frame1, text="First Name", font=("Times New Roman", 20), text_color="orange")
+        label_covid_contact = ctk.CTkLabel(master= self.frame1, text="Have you ever had any contact with a person positive of covid?", font=("Times New Roman", 12), text_color="orange")
         label_covid_contact.pack(padx=10 , pady=10)
-        ctk.CTkRadioButton(master= self.frame1, text="No Dose", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="No Dose").pack()
-        ctk.CTkRadioButton(master= self.frame1, text="1st Dose", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="1st Dose").pack()
-        ctk.CTkRadioButton(master= self.frame1, text="2nd Dose", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="2nd Dose").pack()
-        ctk.CTkRadioButton(master= self.frame1, text="1st Booster", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="1st Booster").pack()
-        ctk.CTkRadioButton(master= self.frame1, text="2nd Booster", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="2nd Booster").pack()
+        ctk.CTkRadioButton(master= self.frame1, text="Yes", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="Yes").pack()
+        ctk.CTkRadioButton(master= self.frame1, text="No", font=("Times New Roman",12), variable=self.vaccine_checkbox, value="No").pack()
         reg_btn = ctk.CTkButton(master=self.frame1, text="Register", font=("Times New Roman",12), command=self.get_information).pack(pady=10,padx=12)
     # create a method for starting the mainloop of the window
     def mainloop(self):
