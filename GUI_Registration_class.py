@@ -69,6 +69,8 @@ class RegistrationGUI:
         ctk.CTkCheckBox(self.frame1, text="Sore throat", variable=self.symptomas_sorethroat, font=("Times New Roman", 12), onvalue=True, offvalue=False).pack()
         self.symptomas_diarreah = ctk.BooleanVar()
         ctk.CTkCheckBox(self.frame1, text="Diarrhea", variable=self.symptomas_diarreah, font=("Times New Roman", 12), onvalue=True, offvalue=False).pack()
+        self.symptomas_nob = ctk.BooleanVar()
+        ctk.CTkCheckBox(self.frame1, text="None of the above", variable=self.symptomas_nob, font=("Times New Roman", 12), onvalue=True, offvalue=False).pack()
         label_covid_contact = ctk.CTkLabel(master= self.frame1, text="Have you ever had any contact with a person positive of covid?", font=("Times New Roman", 15), text_color="orange")
         label_covid_contact.pack(padx=10 , pady=10)
         self.covid_contact = ctk.StringVar()
@@ -81,21 +83,29 @@ class RegistrationGUI:
         ctk.CTkRadioButton(master= self.frame1, text="Yes-Positive", font=("Times New Roman",12), variable=self.covid_tested, value="Yes(Positive)").pack()
         ctk.CTkRadioButton(master= self.frame1, text="Yes-Negative", font=("Times New Roman",12), variable=self.covid_tested, value="Yes(Negative)").pack()
         ctk.CTkRadioButton(master= self.frame1, text="Yes-Pending", font=("Times New Roman",12), variable=self.covid_tested, value="Yes(Pending)").pack()
-        reg_btn = ctk.CTkButton(master=self.frame1, text="Register", font=("Times New Roman",12), command=self.get_information).pack(pady=10,padx=12)
+        def get_information():
+            name = self.first_name.get(),self.last_name.get()
+            number = int(self.phone_number.get())
+            email = self.email.get()
+            address = self.address.get()
+            vaccine = self.vaccine_checkbox.get()
+            symptoms = {"Fever":self.symptomas_fever.get(), "Headache" : self.symptomas_headache.get(), "Cough": self.symptomas_cough.get(), "Shortness of breath" : self.symptomas_sob.get(), "Colds":self.symptomas_colds.get(), "Difficulty of Breathing": self.symptomas_dob.get(), "Muscles/Body Pain": self.symptomas_pain.get(), "Loss of Taste": self.symptomas_lot.get(), "Loss of Smell": self.symptomas_los.get(), "Sore Throat": self.symptomas_sorethroat.get(), "Diarrhea":self.symptomas_diarreah.get(), "None of the Above": self.symptomas_nob.get()}
+            contact_covid = self.covid_contact.get()
+            covid_test = self.covid_tested.get()
+            if not (name and number and email and address and vaccine and symptoms and contact_covid and covid_test):
+                messagebox.showerror("No Input","Please put an input to everything")
+                return
+            else:
+                with open("respondent_information.csv", "a" , newline="") as filler:
+                    info = csv.writer(filler)
+                    info.writerow([name , number, email, address, vaccine, symptoms, contact_covid, covid_test])
+        reg_btn = ctk.CTkButton(master=self.frame1, text="Register", font=("Times New Roman",12), command=get_information).pack(pady=10,padx=12)
+        
     # create a method for starting the mainloop of the window
     def mainloop(self):
         self.app.mainloop()
     # create a method of getting the information and write it in a excel file
-    def get_information(self):
-        name = self.first_name.get(),self.last_name.get()
-        number = str(self.phone_number.get())
-        email = self.email.get()
-        address = str(self.address.get())
-        vaccine = self.vaccine_checkbox.get()
-        symptoms = {"Fever":self.symptomas_fever.get(), "Headache" : self.symptomas_headache.get(), "Cough": self.symptomas_cough.get(), "Shortness of breath" : self.symptomas_sob.get(), "Colds":self.symptomas_colds.get(), "Difficulty of Breathing": self.symptomas_dob.get(), "Muscles/Body Pain": self.symptomas_pain.get(), "Loss of Taste": self.symptomas_lot.get(), "Loss of Smell": self.symptomas_los.get(), "Sore Throat": self.symptomas_sorethroat.get(), "Diarrhea":self.symptomas_diarreah.get()}
-        contact_covid = self.covid_contact.get()
-        covid_test = self.covid_tested.get()
-
-        
+    
+    
 
                 
