@@ -19,7 +19,7 @@ class SearcherGUI:
         label_Title = ctk.CTkLabel(master= self.frame1, text="Neil's Contact Tracing Application", font=("Times New Roman", 40), text_color="#7DF9FF")
         label_Title.pack(padx=10 , pady=12)
         label_Title_name = ctk.CTkLabel(master= self.frame1, text="Search information", font=("Times New Roman", 30), text_color="#7DF9FF")
-        label_Title.pack(padx=10 , pady=12)
+        label_Title_name.pack(padx=10 , pady=12)
         label_name = ctk.CTkLabel(master= self.frame1, text="Full Name", font=("Times New Roman", 20), text_color="orange")
         label_name.pack(padx=10 , pady=10)
         self.name = ctk.CTkEntry(master=self.frame1, placeholder_text="Full Name")

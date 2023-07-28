@@ -88,7 +88,7 @@ class RegistrationGUI:
         ctk.CTkRadioButton(master= self.frame1, text="Yes-Pending", font=("Times New Roman",12), variable=self.covid_tested, value="Yes Pending").pack()
         # create a method of getting the information and write it in a excel file
         def get_information():
-            name = self.first_name.get() + self.last_name.get()
+            name = self.first_name.get() +" " +self.last_name.get()
             number = int(self.phone_number.get())
             email = self.email.get()
             address = self.address.get()
@@ -97,6 +97,14 @@ class RegistrationGUI:
             contact_covid = self.covid_contact.get()
             covid_test = self.covid_tested.get()
             syntomps = ' / '.join(key for key, value in symptoms.items() if value != "")
+            checkers  = not True
+            try:
+                with open("respondent_information.csv", "r") as chickrs:
+                    reading = csv.reader(chickrs)
+                    if any(reading):
+                        checkers = True
+            except FileNotFoundError:
+                pass
             try:
                 if not (name and number and email and address and vaccine and contact_covid and covid_test):
                     messagebox.showerror("No Input","Please put an input to everything")
@@ -106,6 +114,8 @@ class RegistrationGUI:
                 else:
                     with open("respondent_information.csv", "a" , newline="") as filler:
                         info = csv.writer(filler)
+                        if not checkers:
+                            info.writerow(['Name', 'Phone Number', 'Email', 'Address', 'Vaccine', 'Symptoms', 'Contact Covid', 'Covid Tested'])
                         info.writerow([name , number, email, address, vaccine, syntomps, contact_covid, covid_test])
             except ValueError:
                 messagebox.showerror("Wrong CHaracters in the phone number", "Please input numbers only")
