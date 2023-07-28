@@ -94,15 +94,18 @@ class RegistrationGUI:
             contact_covid = self.covid_contact.get()
             covid_test = self.covid_tested.get()
             syntomps = ' / '.join(key for key, value in symptoms.items() if value)
-            if not (name and number and email and address and vaccine and contact_covid and covid_test):
-                messagebox.showerror("No Input","Please put an input to everything")
-                return
-            elif syntomps == "":
-                messagebox.showerror("No Checkmark","PLease check at least 1 in the symptoms or non of the above")
-            else:
-                with open("respondent_information.csv", "a" , newline="") as filler:
-                    info = csv.writer(filler)
-                    info.writerow([name , number, email, address, vaccine, syntomps, contact_covid, covid_test])
+            try:
+                if not (name and number and email and address and vaccine and contact_covid and covid_test):
+                    messagebox.showerror("No Input","Please put an input to everything")
+                    return
+                elif syntomps == "":
+                    messagebox.showerror("No Checkmark","PLease check at least 1 in the symptoms or non of the above")
+                else:
+                    with open("respondent_information.csv", "a" , newline="") as filler:
+                        info = csv.writer(filler)
+                        info.writerow([name , number, email, address, vaccine, syntomps, contact_covid, covid_test])
+            except ValueError:
+                messagebox.showerror("Wrong CHaracters in the phone number", "Please input numbers only")
             self.app.destroy()
         reg_btn = ctk.CTkButton(master=self.frame1, text="Register", font=("Times New Roman",12), command=get_information).pack(pady=10,padx=12)
         
