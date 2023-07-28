@@ -106,6 +106,7 @@ class RegistrationGUI:
                         info.writerow([name , number, email, address, vaccine, syntomps, contact_covid, covid_test])
             except ValueError:
                 messagebox.showerror("Wrong CHaracters in the phone number", "Please input numbers only")
+                return
             self.app.destroy()
         reg_btn = ctk.CTkButton(master=self.frame1, text="Register", font=("Times New Roman",12), command=get_information).pack(pady=10,padx=12)
         
